@@ -28,7 +28,7 @@ const displayAiCards = (aiCards, dataLimit) => {
                         <p><i class="bi bi-calendar4-week"></i>&nbsp; ${aiCard.published_in}</p>
                     </div>
                     <div>
-                        <button  href="#" class="border-0 rounded-circle px-2 py-1 bg-danger bg-opacity-10" data-bs-toggle="modal" data-bs-target="#aiCardDetailModal"><i class="bi bi-arrow-right text-danger"></i></button>
+                        <button onclick="loadAiCardDetails('${aiCard.id}')" href="#" class="border-0 rounded-circle px-2 py-1 bg-danger bg-opacity-10" data-bs-toggle="modal" data-bs-target="#aiCardDetailModal"><i class="bi bi-arrow-right text-danger"></i></button>
                     </div>
                 </div>
             </div>
