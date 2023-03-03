@@ -47,12 +47,14 @@ const loadAiCardDetails = async id => {
 
 const displayAiCardDetails = aiCard => {
     console.log(aiCard);
+
     // collecting feature names 
     const feature_names = [];
     for (let feature in aiCard.features) {
         feature_names.push(aiCard.features[feature].feature_name);
     }
     console.log(feature_names); 
+
     const modalTitle = document.getElementById('aiCardDetailModalLabel');
     modalTitle.innerText = aiCard.tool_name;
     const aiCardDetails = document.getElementById('aiCard-details');
@@ -60,7 +62,19 @@ const displayAiCardDetails = aiCard => {
     <div class="col">
         <div class="card h-100 bg-danger bg-opacity-10 border-danger">
             <div class="card-body">
+                <h5 class="card-title fw-bold">${aiCard.description}</h5>
                 
+                <div class="d-flex justify-content-between mt-3">
+                    <div>
+                        <h5 class="card-title fw-bold">Features</h5>
+                        <p>${feature_names.map(feature => `<li class="text-dark-emphasis"><small>${feature}</small></li>`).join('')}</p>
+                    </div>
+                    <div>
+                        <h5 class="card-title fw-bold">Integrations</h5>
+                        <p>${aiCard.integrations ? aiCard.integrations.map(integration => `<li class="text-dark-emphasis">
+                        <small>${integration}</small></li>`).join('') : `<small class="text-dark-emphasis">No data Found</small>`}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
