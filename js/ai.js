@@ -4,7 +4,7 @@ const loadAiCards = async(dataLimit) => {
     const data = await res.json();
     displayAiCards(data.data.tools, dataLimit);
 }
-
+let text = '';
 const displayAiCards = (aiCards, dataLimit) => {
     // console.log(aiCards);
 
@@ -16,6 +16,10 @@ const displayAiCards = (aiCards, dataLimit) => {
     }
     else {
         showAll.classList.add('d-none');
+    }
+
+    if (text === 'sort-by') {
+        aiCards.sort((first, second) => first.published_in - second.published_in);
     }
 
     // display ai cards
@@ -53,6 +57,13 @@ const displayAiCards = (aiCards, dataLimit) => {
     toggleSpinner(false);
 }
 
+// handle sort by date button click
+document.getElementById('btn-sort-by-date').addEventListener('click', function(){
+    // start loader
+    text = 'sort-by';
+    loadAiCards();
+});
+
 // loader or spinner
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
@@ -87,6 +98,31 @@ const displayAiCardDetails = aiCard => {
     }
     // console.log(feature_names); 
 
+    // validate pricing
+    let price0 = '';
+    if (aiCard.pricing === null || aiCard.pricing[0].price === "0" || aiCard.pricing[0].price === "No cost") {
+        price0 = 'Free of Cost';
+    }
+    else {
+        price0 = aiCard.pricing[0].price;
+    }
+    let price1 = '';
+    if (aiCard.pricing === null || aiCard.pricing[1].price === "No cost") {
+        price1 = 'Free of Cost';
+    }
+    else {
+        price1 = aiCard.pricing[1].price;
+    }
+
+    // validate plans
+    let plan0 = '';
+    if (aiCard.pricing === null || aiCard.pricing[0].plan === "Free") {
+        plan0 = 'Basic';
+    }
+    else {
+        plan0 = aiCard.pricing[0].plan;
+    }
+
     const modalTitle = document.getElementById('aiCardDetailModalLabel');
     modalTitle.innerText = aiCard.tool_name;
     const aiCardDetails = document.getElementById('aiCard-details');
@@ -101,8 +137,8 @@ const displayAiCardDetails = aiCard => {
                             <div class="card-body px-0">
                                 <p class="fw-semibold text-success text-center">
                                     <small>
-                                        ${aiCard.pricing ? aiCard.pricing[0].price : 'Free of Cost'} <br> 
-                                        ${aiCard.pricing ? aiCard.pricing[0].plan : 'Basic'}
+                                        ${price0} <br> 
+                                        ${plan0}
                                     </small>
                                 </p>
                             </div>
@@ -113,7 +149,7 @@ const displayAiCardDetails = aiCard => {
                             <div class="card-body px-0">
                                 <p class="fw-semibold text-warning text-center">
                                     <small>
-                                        ${aiCard.pricing ? aiCard.pricing[1].price : 'Free of Cost'} <br> 
+                                        ${price1} <br> 
                                         ${aiCard.pricing ? aiCard.pricing[1].plan : 'Pro'}
                                     </small>
                                 </p>
