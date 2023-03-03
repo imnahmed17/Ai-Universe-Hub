@@ -47,7 +47,37 @@ const loadAiCardDetails = async id => {
 
 const displayAiCardDetails = aiCard => {
     console.log(aiCard);
-    
+    // collecting feature names 
+    const feature_names = [];
+    for (let feature in aiCard.features) {
+        feature_names.push(aiCard.features[feature].feature_name);
+    }
+    console.log(feature_names); 
+    const modalTitle = document.getElementById('aiCardDetailModalLabel');
+    modalTitle.innerText = aiCard.tool_name;
+    const aiCardDetails = document.getElementById('aiCard-details');
+    aiCardDetails.innerHTML = `
+    <div class="col">
+        <div class="card h-100 bg-danger bg-opacity-10 border-danger">
+            <div class="card-body">
+                
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="${aiCard.image_link[0]}" class="m-3 rounded-3" alt="...">
+            <div class="card-body h-25">
+                <h5 class="card-title text-center fw-bold">
+                    ${aiCard.input_output_examples ? aiCard.input_output_examples[0].input : 'Can you give any example?'}
+                </h5>
+                <p class="card-text text-center fw-light">
+                    ${aiCard.input_output_examples ? aiCard.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}
+                </p>
+            </div>
+        </div>
+    </div>
+    `
 }
 
 loadAiCards();
