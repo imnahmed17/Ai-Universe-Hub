@@ -66,6 +66,7 @@ const toggleSpinner = isLoading => {
 
 // See more to show all ai cards
 document.getElementById('btn-see-more').addEventListener('click', function(){
+    toggleSpinner(true);
     loadAiCards();
 });
 
@@ -77,14 +78,14 @@ const loadAiCardDetails = async id => {
 }
 
 const displayAiCardDetails = aiCard => {
-    console.log(aiCard);
+    // console.log(aiCard);
 
     // collecting feature names 
     const feature_names = [];
     for (let feature in aiCard.features) {
         feature_names.push(aiCard.features[feature].feature_name);
     }
-    console.log(feature_names); 
+    // console.log(feature_names); 
 
     const modalTitle = document.getElementById('aiCardDetailModalLabel');
     modalTitle.innerText = aiCard.tool_name;
@@ -100,7 +101,7 @@ const displayAiCardDetails = aiCard => {
                             <div class="card-body px-0">
                                 <p class="fw-semibold text-success text-center">
                                     <small>
-                                        ${aiCard.pricing ? aiCard.pricing[0].price : 'Free of Cost/'} <br> 
+                                        ${aiCard.pricing ? aiCard.pricing[0].price : 'Free of Cost'} <br> 
                                         ${aiCard.pricing ? aiCard.pricing[0].plan : 'Basic'}
                                     </small>
                                 </p>
@@ -112,7 +113,7 @@ const displayAiCardDetails = aiCard => {
                             <div class="card-body px-0">
                                 <p class="fw-semibold text-warning text-center">
                                     <small>
-                                        ${aiCard.pricing ? aiCard.pricing[1].price : 'Free of Cost/'} <br> 
+                                        ${aiCard.pricing ? aiCard.pricing[1].price : 'Free of Cost'} <br> 
                                         ${aiCard.pricing ? aiCard.pricing[1].plan : 'Pro'}
                                     </small>
                                 </p>
@@ -124,7 +125,7 @@ const displayAiCardDetails = aiCard => {
                             <div class="card-body px-0">
                                 <p class="fw-semibold text-danger text-center">
                                 <small>
-                                    ${aiCard.pricing ? aiCard.pricing[2].price : 'Free of Cost/'} <br> 
+                                    ${aiCard.pricing ? aiCard.pricing[2].price : 'Free of Cost'} <br> 
                                     ${aiCard.pricing ? aiCard.pricing[2].plan : 'Enterprise'}
                                 </small>
                                 </p>
@@ -132,7 +133,7 @@ const displayAiCardDetails = aiCard => {
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between mt-3">
+                <div class="d-md-flex justify-content-between mt-3">
                     <div>
                         <h5 class="card-title fw-bold">Features</h5>
                         <p>${feature_names.map(feature => `<li class="text-dark-emphasis"><small>${feature}</small></li>`).join('')}</p>
@@ -149,6 +150,9 @@ const displayAiCardDetails = aiCard => {
     <div class="col">
         <div class="card h-100">
             <img src="${aiCard.image_link[0]}" class="m-3 rounded-3" alt="...">
+            <button class="btn btn-danger btn-sm position-absolute ${aiCard.accuracy.score ? 'd-block' : 'd-none'}" type="button" style="top: 25px; right: 25px;">
+                ${aiCard.accuracy.score * 100}&percnt; accuracy
+            </button>
             <div class="card-body h-25">
                 <h5 class="card-title text-center fw-bold">
                     ${aiCard.input_output_examples ? aiCard.input_output_examples[0].input : 'Can you give any example?'}
