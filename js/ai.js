@@ -38,6 +38,18 @@ const displayAiCards = (aiCards, dataLimit) => {
         `;
         aiContainer.appendChild(aiDiv);
     });
+    // stop spinner or loader
+    toggleSpinner(false);
+}
+
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none')
+    }
+    else {
+        loaderSection.classList.add('d-none');
+    }
 }
 
 const loadAiCardDetails = async id => {
@@ -133,4 +145,5 @@ const displayAiCardDetails = aiCard => {
     `
 }
 
+toggleSpinner(true);
 loadAiCards();
