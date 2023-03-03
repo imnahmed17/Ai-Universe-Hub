@@ -38,6 +38,16 @@ const displayAiCards = (aiCards, dataLimit) => {
     });
 }
 
+const loadAiCardDetails = async id => {
+    const url =`https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayAiCardDetails(data.data);
+}
 
+const displayAiCardDetails = aiCard => {
+    console.log(aiCard);
+    
+}
 
 loadAiCards();
