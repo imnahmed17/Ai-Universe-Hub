@@ -28,7 +28,9 @@ const displayAiCards = (aiCards, dataLimit) => {
                         <p><i class="bi bi-calendar4-week"></i>&nbsp; ${aiCard.published_in}</p>
                     </div>
                     <div>
-                        <button onclick="loadAiCardDetails('${aiCard.id}')" href="#" class="border-0 rounded-circle px-2 py-1 bg-danger bg-opacity-10" data-bs-toggle="modal" data-bs-target="#aiCardDetailModal"><i class="bi bi-arrow-right text-danger"></i></button>
+                        <button onclick="loadAiCardDetails('${aiCard.id}')" href="#" class="border-0 rounded-circle px-2 py-1 bg-danger bg-opacity-10" data-bs-toggle="modal" data-bs-target="#aiCardDetailModal">
+                            <i class="bi bi-arrow-right text-danger"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -63,7 +65,44 @@ const displayAiCardDetails = aiCard => {
         <div class="card h-100 bg-danger bg-opacity-10 border-danger">
             <div class="card-body">
                 <h5 class="card-title fw-bold">${aiCard.description}</h5>
-                
+                <div class="row row-cols-1 row-cols-md-3 g-2 mt-2">
+                    <div class="col">
+                        <div class="card h-100 bg-white border-0 rounded-4">
+                            <div class="card-body px-0">
+                                <p class="fw-semibold text-success text-center">
+                                    <small>
+                                        ${aiCard.pricing ? aiCard.pricing[0].price : 'Free of Cost/'} <br> 
+                                        ${aiCard.pricing ? aiCard.pricing[0].plan : 'Basic'}
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 bg-white border-0 rounded-4">
+                            <div class="card-body px-0">
+                                <p class="fw-semibold text-warning text-center">
+                                    <small>
+                                        ${aiCard.pricing ? aiCard.pricing[1].price : 'Free of Cost/'} <br> 
+                                        ${aiCard.pricing ? aiCard.pricing[1].plan : 'Pro'}
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 bg-white border-0 rounded-4">
+                            <div class="card-body px-0">
+                                <p class="fw-semibold text-danger text-center">
+                                <small>
+                                    ${aiCard.pricing ? aiCard.pricing[2].price : 'Free of Cost/'} <br> 
+                                    ${aiCard.pricing ? aiCard.pricing[2].plan : 'Enterprise'}
+                                </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="d-flex justify-content-between mt-3">
                     <div>
                         <h5 class="card-title fw-bold">Features</h5>
