@@ -5,8 +5,11 @@ const loadAiCards = async(dataLimit) => {
     displayAiCards(data.data.tools, dataLimit);
 }
 let text = '';
+let cards = [];
+let sortDate = [];
 const displayAiCards = (aiCards, dataLimit) => {
     // console.log(aiCards);
+    cards = aiCards;
 
     // display 6 ai cards only 
     const showAll = document.getElementById('btn-see-more');
@@ -16,10 +19,6 @@ const displayAiCards = (aiCards, dataLimit) => {
     }
     else {
         showAll.classList.add('d-none');
-    }
-
-    if (text === 'sort-by') {
-        aiCards.sort((first, second) => first.published_in - second.published_in);
     }
 
     // display ai cards
@@ -48,21 +47,29 @@ const displayAiCards = (aiCards, dataLimit) => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>        
         </div>
         `;
         aiContainer.appendChild(aiDiv);
     });
     // stop spinner or loader
     toggleSpinner(false);
+    toggleSpinner1(false);
 }
 
-// handle sort by date button click
-document.getElementById('btn-sort-by-date').addEventListener('click', function(){
-    // start loader
-    text = 'sort-by';
-    loadAiCards();
-});
+const sorting = (a, b) => {
+    const dateA = new Date(a.published_in);
+    const dateB = new Date(b.published_in);
+    if (dateA > dateB) {
+        return 1;
+    }
+    else if (dateA < dateB) {
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
 
 // loader or spinner
 const toggleSpinner = isLoading => {
@@ -74,11 +81,39 @@ const toggleSpinner = isLoading => {
         loaderSection.classList.add('d-none');
     }
 }
+const toggleSpinner1 = isLoading => {
+    const loaderSection = document.getElementById('loader1');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none')
+    }
+    else {
+        loaderSection.classList.add('d-none');
+    }
+}
+
+// handle sort by date button click
+document.getElementById('btn-sort-by-date').addEventListener('click', function(){
+    toggleSpinner(true);
+    text = 'sort-by';
+    sortDate = cards.sort(sorting);
+    // console.log(sortDate);
+    if (!sortDate) {
+        alert("Data not found");
+    }
+    else {
+        displayAiCards(sortDate, 6);
+    }
+});
 
 // See more to show all ai cards
 document.getElementById('btn-see-more').addEventListener('click', function(){
-    toggleSpinner(true);
-    loadAiCards();
+    toggleSpinner1(true);
+    if (text === 'sort-by') {
+        displayAiCards(sortDate);
+    }
+    else {
+        loadAiCards();
+    }
 });
 
 const loadAiCardDetails = async id => {
@@ -89,8 +124,6 @@ const loadAiCardDetails = async id => {
 }
 
 const displayAiCardDetails = aiCard => {
-    // console.log(aiCard);
-
     // collecting feature names 
     const feature_names = [];
     for (let feature in aiCard.features) {
