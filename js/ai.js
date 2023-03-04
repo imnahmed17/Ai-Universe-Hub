@@ -4,6 +4,7 @@ const loadAiCards = async(dataLimit) => {
     const data = await res.json();
     displayAiCards(data.data.tools, dataLimit);
 }
+
 let text = '';
 let cards = [];
 let sortDate = [];
@@ -93,10 +94,10 @@ const toggleSpinner1 = isLoading => {
 
 // handle sort by date button click
 document.getElementById('btn-sort-by-date').addEventListener('click', function(){
-    toggleSpinner(true);
     text = 'sort-by';
     sortDate = cards.sort(sorting);
     // console.log(sortDate);
+
     if (!sortDate) {
         alert("Data not found");
     }
@@ -156,8 +157,6 @@ const displayAiCardDetails = aiCard => {
         plan0 = aiCard.pricing[0].plan;
     }
 
-    const modalTitle = document.getElementById('aiCardDetailModalLabel');
-    modalTitle.innerText = aiCard.tool_name;
     const aiCardDetails = document.getElementById('aiCard-details');
     aiCardDetails.innerHTML = `
     <div class="col">
