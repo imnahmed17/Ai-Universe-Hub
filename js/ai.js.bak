@@ -58,7 +58,7 @@ const displayAiCards = (aiCards, dataLimit) => {
     toggleSpinner1(false);
 }
 
-const sortObject = (a, b) => {
+const sorting = (a, b) => {
     const dateA = new Date(a.published_in);
     const dateB = new Date(b.published_in);
     if (dateA > dateB) {
@@ -95,7 +95,7 @@ const toggleSpinner1 = isLoading => {
 // handle sort by date button click
 document.getElementById('btn-sort-by-date').addEventListener('click', function(){
     text = 'sort-by';
-    sortDate = cards.sort(sortObject);
+    sortDate = cards.sort(sorting);
     // console.log(sortDate);
 
     if (!sortDate) {

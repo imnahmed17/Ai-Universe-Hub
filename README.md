@@ -1,10 +1,8 @@
-# AI-universe-hub
+# ai-universe-hub
+It is a read only application. Sort by date and see more button implemented for each card. Each card has an arrow button which opens up with a modal containing card detail information.
 
-### Private Repo Link
-Click Here to create [private repo](https://classroom.github.com/a/dhefyS56)
-
-Private Repo link: [https://classroom.github.com/a/dhefyS56](https://classroom.github.com/a/dhefyS56)
-
+## Live Link
+Hosted in Netlify -> [AI Universe Hub](https://rococo-clafoutis-689141.netlify.app)
 
 ## API Links
 All data: [https://openapi.programming-hero.com/api/ai/tools](https://openapi.programming-hero.com/api/ai/tools)
